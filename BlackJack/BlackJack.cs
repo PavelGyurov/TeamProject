@@ -31,7 +31,6 @@ namespace BlackJack
                 Console.WriteLine(string.Join(", ", dealerCards));
                 Console.WriteLine(GetScore(dealerCards));
 
-                Thread.Sleep(20);        //resets rng
 
                 playerCards.Add(DrawCard(deck));
                 playerCards.Add(DrawCard(deck));
@@ -45,6 +44,7 @@ namespace BlackJack
                     string choice = Console.ReadLine();
                     if (choice == "h")
                     {
+                        
                         playerCards.Add(DrawCard(deck));
                         Console.WriteLine(string.Join(", ", playerCards));
                         Console.WriteLine(GetScore(playerCards));
@@ -191,6 +191,7 @@ namespace BlackJack
             }
             string card = deck[rngesus];
             deck.RemoveAt(rngesus);
+            Thread.Sleep(20);  
             return card;
         }
 
