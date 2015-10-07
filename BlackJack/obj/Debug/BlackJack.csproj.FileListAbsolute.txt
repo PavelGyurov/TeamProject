@@ -10,3 +10,9 @@ E:\projects\github\Teamproject\BlackJack\obj\Debug\BlackJack.pdb
 E:\projects\github\Teamproject\BlackJack\bin\Debug\BlackJack.exe
 E:\projects\github\Teamproject\BlackJack\bin\Debug\BlackJack.pdb
 E:\projects\github\Teamproject\BlackJack\obj\Debug\BlackJack.csprojResolveAssemblyReference.cache
+C:\Users\Pavel\Downloads\exprepo\BlackJack\bin\Debug\BlackJack.exe.config
+C:\Users\Pavel\Downloads\exprepo\BlackJack\obj\Debug\BlackJack.exe
+C:\Users\Pavel\Downloads\exprepo\BlackJack\obj\Debug\BlackJack.pdb
+C:\Users\Pavel\Downloads\exprepo\BlackJack\bin\Debug\BlackJack.exe
+C:\Users\Pavel\Downloads\exprepo\BlackJack\bin\Debug\BlackJack.pdb
+C:\Users\Pavel\Downloads\exprepo\BlackJack\obj\Debug\BlackJack.csprojResolveAssemblyReference.cache
