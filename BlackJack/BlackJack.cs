@@ -129,14 +129,14 @@ namespace BlackJack
                             {
                                 Console.WriteLine("Dealer hits");
                                 dealerCards.Add(DrawCard(deck));
-                                Thread.Sleep(1000);
+                                Thread.Sleep(700);
                                 
                                 Console.Clear(); PrintScore(playerCards, dealerCards, chips, bet);
                             }
                             else if (GetScore(dealerCards) >= 17 && GetScore(dealerCards) <= 20)
                             {
                                 Console.WriteLine("Dealer stands");
-                                Thread.Sleep(1000);
+                                Thread.Sleep(700);
                                 
                                 Console.Clear(); PrintScore(playerCards, dealerCards, chips, bet);
                                 break;
@@ -321,22 +321,110 @@ namespace BlackJack
 
         static void PrintScore(List<string> playerCards, List<string> dealerCards, int chips, int bet)
         {
-            Console.SetCursorPosition(0, 30);
-            Console.WriteLine("Dealer cards: " + string.Join(", ", dealerCards));
-            Console.WriteLine("Dealer score: " + GetScore(dealerCards));
-            Console.WriteLine("Your cards:" + string.Join(", ", playerCards));
-            Console.WriteLine("Your score: " + GetScore(playerCards));
+            Random rng = new Random();
+            int cardColor;
+            int cursorX = 15;
+            int cursorY = 15;
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.SetCursorPosition(0, cursorY + 3);
+            Console.Write("Dealer cards:");
+            Console.ResetColor();
+            for (int k = 0; k < dealerCards.Count; k++)
+            {
+                for (int i = 0; i < 7; i++)
+                {
+                    Console.BackgroundColor = ConsoleColor.White;
+                    Console.ForegroundColor = ConsoleColor.Black;
+                    Console.SetCursorPosition(cursorX, cursorY + i);
+                    for (int j = 0; j < 8; j++)
+                    {
+                        if (i == 0 || i == 6 || j == 0 || j == 7)
+                        {
+                            Console.BackgroundColor = ConsoleColor.DarkBlue;
+                        }
+                        Console.Write(" ");
+                        Console.BackgroundColor = ConsoleColor.White;
+                       
+                    }
+                    Console.WriteLine();
+
+                }
+                cardColor = rng.Next(0, 2);
+                if (cardColor == 0)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                }
+                Thread.Sleep(10);
+                Console.SetCursorPosition(cursorX + 3, cursorY + 3);
+                Console.Write("{0}", dealerCards[k]);
+                cursorX += 10;
+                Console.ForegroundColor = ConsoleColor.Black;
+            }
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.SetCursorPosition(cursorX, cursorY + 3);
+            Console.Write(("Score: " + GetScore(dealerCards)));
+            Console.ResetColor();
+            cursorX = 15;
+            cursorY = 25;
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
+            Console.SetCursorPosition(0, cursorY + 3);
+            Console.Write("Player cards:");
+            Console.ResetColor();
+            for (int k = 0; k < playerCards.Count; k++)
+            {
+                for (int i = 0; i < 7; i++)
+                {
+                    Console.BackgroundColor = ConsoleColor.White;
+                    Console.ForegroundColor = ConsoleColor.Black;
+                    Console.SetCursorPosition(cursorX, cursorY + i);
+                    for (int j = 0; j < 8; j++)
+                    {
+                        if (i == 0 || i == 6 || j == 0 || j == 7)
+                        {
+                            Console.BackgroundColor = ConsoleColor.DarkBlue;
+                        }
+                        Console.Write(" ");
+                        Console.BackgroundColor = ConsoleColor.White;
+                        
+                    }
+                    Console.WriteLine();
+
+                }
+                cardColor = rng.Next(0, 2);
+                if (cardColor == 0)
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                }
+                Thread.Sleep(10);
+                Console.SetCursorPosition(cursorX + 3, cursorY + 3);
+                Console.Write("{0}", playerCards[k]);
+                cursorX += 10;
+            }
+            Console.ResetColor();
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.SetCursorPosition(cursorX, cursorY + 3);
+            Console.Write(("Score: " + GetScore(playerCards)));
+            Console.ResetColor();
+
             Console.BackgroundColor = ConsoleColor.DarkGreen;
             for (int i = 0; i < Console.BufferHeight; i++)
             {
                 Console.SetCursorPosition(80, i);
-                Console.WriteLine("|");
+                Console.WriteLine('|');
             }
-            Console.BackgroundColor = ConsoleColor.Black;
+            for (int i = 0; i < 81; i++)
+            {
+                Console.SetCursorPosition(i, 40);
+                Console.Write('-');
+            }
+            Console.ResetColor();
             Console.SetCursorPosition(85, 30);
             Console.WriteLine("Chips: {0}", chips - bet);
             Console.SetCursorPosition(85, 42);
             Console.WriteLine("Bet: {0}", bet);
         }
+
+        
     }
 }
