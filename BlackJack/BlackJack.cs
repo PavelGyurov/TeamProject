@@ -59,6 +59,7 @@ namespace BlackJack
                 Console.WriteLine("You had {0} wins, {1} ties and {2} losses by now", winCount, tieCount, loseCount);
                 while (true)
                 {
+                    
                     Console.WriteLine("Enter the amount of chips you want to bet (you have {0} chips)", chips);
                     try
                     {
@@ -190,11 +191,15 @@ namespace BlackJack
                     {
                         Console.WriteLine("Player wins");
                         chips += bet;
+                        Thread.Sleep(4500);
+                        Console.Clear();
                     }
                     else
                     {
                         Console.WriteLine("Dealer wins");
                         chips -= bet;
+                        Thread.Sleep(4500);
+                        Console.Clear();
                     }
                 }
                 if (chips == 0)

@@ -7,3 +7,6 @@ c:\users\pavel\documents\visual studio 2013\Projects\BlackJack\BlackJack\obj\Deb
 E:\projects\github\Teamproject\BlackJack\bin\Debug\BlackJack.exe.config
 E:\projects\github\Teamproject\BlackJack\obj\Debug\BlackJack.exe
 E:\projects\github\Teamproject\BlackJack\obj\Debug\BlackJack.pdb
+E:\projects\github\Teamproject\BlackJack\bin\Debug\BlackJack.exe
+E:\projects\github\Teamproject\BlackJack\bin\Debug\BlackJack.pdb
+E:\projects\github\Teamproject\BlackJack\obj\Debug\BlackJack.csprojResolveAssemblyReference.cache
