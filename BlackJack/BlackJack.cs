@@ -60,15 +60,14 @@ namespace BlackJack
                 bool gameover = false;
 
                 dealerCards.Add(DrawCard(deck));
-                Console.WriteLine(string.Join(", ", dealerCards));
-                Console.WriteLine(GetScore(dealerCards));
+                Console.WriteLine("Dealer cards: " + string.Join(", ", dealerCards));
+                Console.WriteLine("Dealer score: " + GetScore(dealerCards));
 
 
                 playerCards.Add(DrawCard(deck));
                 playerCards.Add(DrawCard(deck));
-                Console.WriteLine(string.Join(", ", playerCards));
-                Console.WriteLine(GetScore(playerCards));
-
+                Console.WriteLine("Your cards:" + string.Join(", ", playerCards));
+                Console.WriteLine("Your score: " + GetScore(playerCards));
 
                 while (true)
                 {
@@ -78,8 +77,8 @@ namespace BlackJack
                     {
 
                         playerCards.Add(DrawCard(deck));
-                        Console.WriteLine(string.Join(", ", playerCards));
-                        Console.WriteLine(GetScore(playerCards));
+                        Console.WriteLine("Your cards:" + string.Join(", ", playerCards));
+                        Console.WriteLine("Your score: " + GetScore(playerCards));
                     }
                     if (GetScore(playerCards) == 21)
                     {
@@ -107,8 +106,8 @@ namespace BlackJack
                             {
                                 Console.WriteLine("Dealer hits");
                                 dealerCards.Add(DrawCard(deck));
-                                Console.WriteLine(string.Join(", ", dealerCards));
-                                Console.WriteLine(GetScore(dealerCards));
+                                Console.WriteLine("Dealer cards: " + string.Join(", ", dealerCards));
+                                Console.WriteLine("Dealer score: " + GetScore(dealerCards));
                             }
                             else if (GetScore(dealerCards) >= 17 && GetScore(dealerCards) <= 20)
                             {
@@ -203,7 +202,7 @@ namespace BlackJack
                     }
                     if (input == "no")
                     {
-                        Console.WriteLine("Good bye !");
+                        Console.WriteLine("Good bye. Thank you for playing !");
                         return 0;
                     }
                     if (input != "yes" || input != "no")
