@@ -56,23 +56,31 @@ namespace BlackJack
                 List<string> dealerCards = new List<string>();
                 List<string> playerCards = new List<string>();
                 int bet;
+                Console.WriteLine("You had {0} wins, {1} ties and {2} losses by now", winCount, tieCount, loseCount);
+                Console.WriteLine("Enter the amount of chips you want to bet (you have {0} chips)", chips);
                 while (true)
                 {
-                    Console.WriteLine("You had {0} wins, {1} ties and {2} losses by now", winCount, tieCount, loseCount);
-                    Console.WriteLine("Enter the amount of chips you want to bet (you have {0} chips)", chips);
+                    
                     try
                     {
                         bet = int.Parse(Console.ReadLine());
                         if (bet < 0 || bet > chips)
                         {
+                            Console.Clear();
+                            Console.WriteLine("You had {0} wins, {1} ties and {2} losses by now", winCount, tieCount, loseCount);
+                            Console.WriteLine("Enter the amount of chips you want to bet (you have {0} chips)", chips);
                             Console.WriteLine("You can't bet {0}, you have {1}", bet, chips);
                         }
                         if (bet > 0 && bet <= chips) break;
                     }
                     catch (System.FormatException)
                     {
-                        Console.WriteLine("Invalid input,please use a number.");
+                        Console.Clear();
+                        Console.WriteLine("You had {0} wins, {1} ties and {2} losses by now", winCount, tieCount, loseCount);
+                        Console.WriteLine("Enter the amount of chips you want to bet (you have {0} chips)", chips);
+                        Console.WriteLine("Invalid input, please use a number.");
                     }
+                    
                 }
                 bool win = true;
                 bool gameover = false;
@@ -203,8 +211,8 @@ namespace BlackJack
                     chips = NewGame();
 
                 }
-                Console.WriteLine("Press any key to play again");
-                Console.ReadKey();
+                
+                Thread.Sleep(1000);
                 Console.Clear();
 
                 StreamWriter writeSaveGame = new StreamWriter(saveGamePath);
