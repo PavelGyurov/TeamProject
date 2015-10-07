@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -12,53 +13,91 @@ namespace BlackJack
         const char heart = '\u2665';
         const char diamond = '\u2666';
         const char club = '\u2663';
-
+        const string saveGamePath = "../../saveGame.txt";
 
         static void Main(string[] args)
         {
-            Console.SetWindowSize(100, 50);
-            Console.BufferHeight = Console.WindowHeight;
-            Console.BufferWidth = Console.WindowWidth;
-            List<string> deck = InitialiseDecks();
+            if (!File.Exists(saveGamePath))
+            {
+                FileStream createSaveGame = new FileStream(saveGamePath, FileMode.Create, FileAccess.ReadWrite);
+                createSaveGame.Close();
+            }
+            StreamReader readSaveGame = new StreamReader(saveGamePath);
             int chips = 1000;
-
+            int winCount = 0, loseCount = 0, tieCount = 0;
+            using (readSaveGame)
+            {
+                string line = readSaveGame.ReadLine();
+                if (line != null)
+                {
+                    chips = int.Parse(line);
+                    string wins = readSaveGame.ReadLine();
+                    winCount = int.Parse(wins);
+                    string losses = readSaveGame.ReadLine();
+                    loseCount = int.Parse(losses);
+                    string ties = readSaveGame.ReadLine();
+                    tieCount = int.Parse(ties);
+                }
+                Console.WriteLine("You had {0} wins, {1} ties and {2} losses by now", winCount, tieCount, loseCount);
+            }
+            if (chips == 0)
+            {
+                chips = NewGame();
+                if (chips == 0) return;
+            }
+            List<string> deck = InitialiseDecks();
             while (chips > 0)
             {
                 List<string> dealerCards = new List<string>();
                 List<string> playerCards = new List<string>();
-                Console.WriteLine("Enter the amount of chips you want to bet (you have {0} chips)", chips);
-                int bet = int.Parse(Console.ReadLine());
+                int bet;
+                while (true)
+                {
+                    Console.WriteLine("Enter the amount of chips you want to bet (you have {0} chips)", chips);
+                    try
+                    {
+                        bet = int.Parse(Console.ReadLine());
+                        if (bet < 0 || bet > chips)
+                        {
+                            Console.WriteLine("You can't bet {0}, you have {1}", bet, chips);
+                        }
+                        if (bet > 0 && bet <= chips) break;
+                    }
+                    catch (System.FormatException)
+                    {
+                        Console.WriteLine("Invalid input,please use a number.");
+                    }
+                }
                 bool win = true;
                 bool gameover = false;
 
                 dealerCards.Add(DrawCard(deck));
-                Console.WriteLine(string.Join(", ", dealerCards));
-                Console.WriteLine(GetScore(dealerCards));
+                Console.WriteLine("Dealer cards: " + string.Join(", ", dealerCards));
+                Console.WriteLine("Dealer score: " + GetScore(dealerCards));
 
 
                 playerCards.Add(DrawCard(deck));
                 playerCards.Add(DrawCard(deck));
-                Console.WriteLine(string.Join(", ", playerCards));
-                Console.WriteLine(GetScore(playerCards));
-
+                Console.WriteLine("Your cards:" + string.Join(", ", playerCards));
+                Console.WriteLine("Your score: " + GetScore(playerCards));
 
                 while (true)
                 {
-                    Console.WriteLine("Press H to Hit or S to Stand");
-                    ConsoleKeyInfo choice = Console.ReadKey();
-                    //string choice = Console.ReadLine();
-                    if (choice.Key == ConsoleKey.H)
+                    Console.WriteLine("Hit or stand");
+                    string choice = Console.ReadLine().ToLower();
+                    if (choice == "h" || choice == "hit")
                     {
-                        
+
                         playerCards.Add(DrawCard(deck));
-                        Console.WriteLine(string.Join(", ", playerCards));
-                        Console.WriteLine(GetScore(playerCards));
+                        Console.WriteLine("Your cards:" + string.Join(", ", playerCards));
+                        Console.WriteLine("Your score: " + GetScore(playerCards));
                     }
                     if (GetScore(playerCards) == 21)
                     {
                         Console.WriteLine("Blackjack!");
                         win = true;
                         gameover = true;
+                        tieCount++;
                         break;
                     }
 
@@ -67,9 +106,10 @@ namespace BlackJack
                         Console.WriteLine("Player busts");
                         win = false;
                         gameover = true;
+                        loseCount++;
                         break;
                     }
-                    if (choice.Key == ConsoleKey.S)
+                    if (choice == "s" || choice == "stand")
                     {
 
                         while (true)
@@ -78,8 +118,8 @@ namespace BlackJack
                             {
                                 Console.WriteLine("Dealer hits");
                                 dealerCards.Add(DrawCard(deck));
-                                Console.WriteLine(string.Join(", ", dealerCards));
-                                Console.WriteLine(GetScore(dealerCards));
+                                Console.WriteLine("Dealer cards: " + string.Join(", ", dealerCards));
+                                Console.WriteLine("Dealer score: " + GetScore(dealerCards));
                             }
                             else if (GetScore(dealerCards) >= 17 && GetScore(dealerCards) <= 20)
                             {
@@ -93,6 +133,7 @@ namespace BlackJack
                                 Console.WriteLine("Dealer Blackjack!");
                                 win = false;
                                 gameover = true;
+                                loseCount++;
                                 break;
                             }
 
@@ -101,6 +142,7 @@ namespace BlackJack
                                 Console.WriteLine("Dealer busts");
                                 win = true;
                                 gameover = true;
+                                winCount++;
                                 break;
                             }
                             Thread.Sleep(1000);
@@ -114,6 +156,7 @@ namespace BlackJack
                     Console.WriteLine("Tie");
                     gameover = true;
                     tie = true;
+                    tieCount++;
                 }
 
                 if (gameover == false)
@@ -121,10 +164,12 @@ namespace BlackJack
                     if (GetScore(playerCards) > GetScore(dealerCards))
                     {
                         win = true;
+                        winCount++;
                     }
                     else if (GetScore(playerCards) < GetScore(dealerCards))
                     {
                         win = false;
+                        loseCount++;
                     }
                 }
                 if (tie == false)
@@ -140,7 +185,44 @@ namespace BlackJack
                         chips -= bet;
                     }
                 }
+                if (chips == 0)
+                {
+                    chips = NewGame();
+
+                }
+                StreamWriter writeSaveGame = new StreamWriter(saveGamePath);
+                using (writeSaveGame)
+                {
+                    writeSaveGame.WriteLine(chips);
+                    writeSaveGame.WriteLine(winCount);
+                    writeSaveGame.WriteLine(loseCount);
+                    writeSaveGame.WriteLine(tieCount);
+                }
             }
+        }
+        static int NewGame()
+        {
+            Console.WriteLine("You have 0 chips, do you want to start over ? (yes/no)");
+            int chips;
+            while (true)
+            {
+                string input = Console.ReadLine();
+                if (input == "yes")
+                {
+                    chips = 1000;
+                    break;
+                }
+                if (input == "no")
+                {
+                    Console.WriteLine("Good bye. Thank you for playing !");
+                    return 0;
+                }
+                if (input != "yes" || input != "no")
+                {
+                    Console.WriteLine("Invalid input, please type yes or no.");
+                }
+            }
+            return chips;
         }
 
         static List<string> InitialiseDecks()
@@ -196,7 +278,7 @@ namespace BlackJack
             }
             string card = deck[rngesus];
             deck.RemoveAt(rngesus);
-            Thread.Sleep(20);  
+            Thread.Sleep(20);
             return card;
         }
 
