@@ -42,7 +42,7 @@ namespace BlackJack
                     string ties = readSaveGame.ReadLine();
                     tieCount = int.Parse(ties);
                 }
-               
+
             }
             if (chips == 0)
             {
@@ -50,46 +50,37 @@ namespace BlackJack
                 if (chips == 0) return;
             }
             List<string> deck = InitialiseDecks();
-            
+
             while (chips > 0)
             {
                 List<string> dealerCards = new List<string>();
                 List<string> playerCards = new List<string>();
                 int bet;
                 Console.WriteLine("You had {0} wins, {1} ties and {2} losses by now", winCount, tieCount, loseCount);
-                Console.WriteLine("Enter the amount of chips you want to bet (you have {0} chips)", chips);
                 while (true)
                 {
-                    
+                    Console.WriteLine("Enter the amount of chips you want to bet (you have {0} chips)", chips);
                     try
                     {
                         bet = int.Parse(Console.ReadLine());
                         if (bet < 0 || bet > chips)
                         {
-                            Console.Clear();
-                            Console.WriteLine("You had {0} wins, {1} ties and {2} losses by now", winCount, tieCount, loseCount);
-                            Console.WriteLine("Enter the amount of chips you want to bet (you have {0} chips)", chips);
                             Console.WriteLine("You can't bet {0}, you have {1}", bet, chips);
                         }
                         if (bet > 0 && bet <= chips) break;
                     }
                     catch (System.FormatException)
                     {
-                        Console.Clear();
-                        Console.WriteLine("You had {0} wins, {1} ties and {2} losses by now", winCount, tieCount, loseCount);
-                        Console.WriteLine("Enter the amount of chips you want to bet (you have {0} chips)", chips);
-                        Console.WriteLine("Invalid input, please use a number.");
+                        Console.WriteLine("Invalid input,please use a number.");
                     }
-                    
                 }
                 bool win = true;
                 bool gameover = false;
-
-
+                Console.Clear();
                 dealerCards.Add(DrawCard(deck));
                 playerCards.Add(DrawCard(deck));
                 playerCards.Add(DrawCard(deck));
-                
+
                 PrintScore(playerCards, dealerCards, chips, bet);
 
                 while (true)
@@ -105,9 +96,9 @@ namespace BlackJack
                     }
                     if (choice.Key == ConsoleKey.H)
                     {
-                        
+
                         playerCards.Add(DrawCard(deck));
-                        
+
                         Console.Clear();
                         PrintScore(playerCards, dealerCards, chips, bet);
                     }
@@ -138,14 +129,14 @@ namespace BlackJack
                                 Console.WriteLine("Dealer hits");
                                 dealerCards.Add(DrawCard(deck));
                                 Thread.Sleep(700);
-                                
+
                                 Console.Clear(); PrintScore(playerCards, dealerCards, chips, bet);
                             }
                             else if (GetScore(dealerCards) >= 17 && GetScore(dealerCards) <= 20)
                             {
                                 Console.WriteLine("Dealer stands");
                                 Thread.Sleep(700);
-                                
+
                                 Console.Clear(); PrintScore(playerCards, dealerCards, chips, bet);
                                 break;
                             }
@@ -209,11 +200,9 @@ namespace BlackJack
                 if (chips == 0)
                 {
                     chips = NewGame();
-
                 }
-                
-                Thread.Sleep(1000);
-                Console.Clear();
+
+
 
                 StreamWriter writeSaveGame = new StreamWriter(saveGamePath);
                 using (writeSaveGame)
@@ -236,6 +225,7 @@ namespace BlackJack
                 if (input == "yes")
                 {
                     chips = 1000;
+                    Console.Clear();
                     break;
                 }
                 if (input == "no")
@@ -249,7 +239,7 @@ namespace BlackJack
                 }
             }
             return chips;
-        } 
+        }
 
         static List<string> InitialiseDecks()
         {
@@ -304,7 +294,7 @@ namespace BlackJack
             }
             string card = deck[rngesus];
             deck.RemoveAt(rngesus);
-            Thread.Sleep(20);  
+            Thread.Sleep(20);
             return card;
         }
 
@@ -352,7 +342,7 @@ namespace BlackJack
                         }
                         Console.Write(" ");
                         Console.BackgroundColor = ConsoleColor.White;
-                       
+
                     }
                     Console.WriteLine();
 
@@ -394,7 +384,7 @@ namespace BlackJack
                         }
                         Console.Write(" ");
                         Console.BackgroundColor = ConsoleColor.White;
-                        
+
                     }
                     Console.WriteLine();
 
@@ -433,6 +423,6 @@ namespace BlackJack
             Console.WriteLine("Bet: {0}", bet);
         }
 
-        
+
     }
 }
