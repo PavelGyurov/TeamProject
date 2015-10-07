@@ -103,11 +103,14 @@ namespace BlackJack
                         break;
                     }
                 }
+                bool tie = false;
                 if (GetScore(playerCards) == GetScore(dealerCards))
                 {
                     Console.WriteLine("Tie");
                     gameover = true;
+                    tie = true;
                 }
+
                 if (gameover == false)
                 {
                     if (GetScore(playerCards) > GetScore(dealerCards))
@@ -119,15 +122,18 @@ namespace BlackJack
                         win = false;
                     }
                 }
-                if (win == true)
+                if (tie == false)
                 {
-                    Console.WriteLine("Player wins");
-                    chips += bet;
-                }
-                else
-                {
-                    Console.WriteLine("Dealer wins");
-                    chips -= bet;
+                    if (win == true)
+                    {
+                        Console.WriteLine("Player wins");
+                        chips += bet;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Dealer wins");
+                        chips -= bet;
+                    }
                 }
             }
         }
@@ -163,14 +169,15 @@ namespace BlackJack
             {
                 value = 11;
             }
-            if (card[0] >= 50 && card[0] <= 57)
-            {
-                value = int.Parse(card[0].ToString());
-            }
             else
-            {
-                value = 10;
-            }
+                if (card[0] >= 50 && card[0] <= 57)
+                {
+                    value = int.Parse(card[0].ToString());
+                }
+                else
+                {
+                    value = 10;
+                }
             return value;
         }
 
@@ -190,9 +197,18 @@ namespace BlackJack
         static int GetScore(List<string> cards)
         {
             int score = 0;
+            int acesCount = 0;
             for (int i = 0; i < cards.Count; i++)
             {
                 score += GetValueOfCard(cards[i]);
+                if (GetValueOfCard(cards[i]) == 11)
+                {
+                    acesCount++;
+                }
+            }
+            if (score > 21)
+            {
+                score -= (10 * acesCount);
             }
             return score;
         }
