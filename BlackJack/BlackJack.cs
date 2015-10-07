@@ -13,8 +13,12 @@ namespace BlackJack
         const char diamond = '\u2666';
         const char club = '\u2663';
 
+
         static void Main(string[] args)
         {
+            Console.SetWindowSize(100, 50);
+            Console.BufferHeight = Console.WindowHeight;
+            Console.BufferWidth = Console.WindowWidth;
             List<string> deck = InitialiseDecks();
             int chips = 1000;
 
@@ -40,9 +44,10 @@ namespace BlackJack
 
                 while (true)
                 {
-                    Console.WriteLine("Hit or stand");
-                    string choice = Console.ReadLine();
-                    if (choice == "h")
+                    Console.WriteLine("Press H to Hit or S to Stand");
+                    ConsoleKeyInfo choice = Console.ReadKey();
+                    //string choice = Console.ReadLine();
+                    if (choice.Key == ConsoleKey.H)
                     {
                         
                         playerCards.Add(DrawCard(deck));
@@ -64,7 +69,7 @@ namespace BlackJack
                         gameover = true;
                         break;
                     }
-                    if (choice == "s")
+                    if (choice.Key == ConsoleKey.S)
                     {
 
                         while (true)
