@@ -42,26 +42,8 @@ namespace BlackJack
             }
             if (chips == 0)
             {
-                Console.WriteLine("You have 0 chips, do you want to start over ? (yes/no)");
-
-                while (true)
-                {
-                    string choice = Console.ReadLine();
-                    if (choice == "yes")
-                    {
-                        chips = 1000;
-                        break;
-                    }
-                    if (choice == "no")
-                    {
-                        Console.WriteLine("Good bye !");
-                        return;
-                    }
-                    if (choice != "yes" || choice != "no")
-                    {
-                        Console.WriteLine("Invalid input, please type yes or no.");
-                    }
-                }
+                chips = NewGame();
+                if (chips == 0) return;
             }
             List<string> deck = InitialiseDecks();
             while (chips > 0)
@@ -70,6 +52,10 @@ namespace BlackJack
                 List<string> playerCards = new List<string>();
                 Console.WriteLine("Enter the amount of chips you want to bet (you have {0} chips)", chips);
                 int bet = int.Parse(Console.ReadLine());
+                while (bet < 0 && bet > chips)
+                {
+                    Console.WriteLine("You have {0} chips, you can't bet {1}",chips, bet);
+                }
                 bool win = true;
                 bool gameover = false;
 
@@ -188,6 +174,11 @@ namespace BlackJack
                         chips -= bet;
                     }
                 }
+                if (chips == 0)
+                {
+                    chips = NewGame();
+                    
+                }
                 StreamWriter writeSaveGame = new StreamWriter(saveGamePath);
                 using (writeSaveGame)
                 {
@@ -198,6 +189,30 @@ namespace BlackJack
                 }
             }
         }
+        static int NewGame()
+        {
+                Console.WriteLine("You have 0 chips, do you want to start over ? (yes/no)");
+                int chips;
+                while (true)
+                {
+                    string input = Console.ReadLine();
+                    if (input == "yes")
+                    {
+                        chips = 1000;
+                        break;
+                    }
+                    if (input == "no")
+                    {
+                        Console.WriteLine("Good bye !");
+                        return 0;
+                    }
+                    if (input != "yes" || input != "no")
+                    {
+                        Console.WriteLine("Invalid input, please type yes or no.");
+                    }
+                }
+                return chips;
+        } 
 
         static List<string> InitialiseDecks()
         {
