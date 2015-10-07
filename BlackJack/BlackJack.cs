@@ -50,11 +50,23 @@ namespace BlackJack
             {
                 List<string> dealerCards = new List<string>();
                 List<string> playerCards = new List<string>();
-                Console.WriteLine("Enter the amount of chips you want to bet (you have {0} chips)", chips);
-                int bet = int.Parse(Console.ReadLine());
-                while (bet < 0 && bet > chips)
+                int bet;
+                while (true)
                 {
-                    Console.WriteLine("You have {0} chips, you can't bet {1}",chips, bet);
+                    Console.WriteLine("Enter the amount of chips you want to bet (you have {0} chips)", chips);
+                    try
+                    {
+                        bet =int.Parse(Console.ReadLine());
+                        if (bet < 0 || bet > chips)
+                        {
+                            Console.WriteLine("You can't bet {0}, you have {1}",bet, chips);
+                        }
+                        if(bet >0 && bet <=chips) break;
+                    }
+                    catch (System.FormatException)
+                    {
+                        Console.WriteLine("Invalid input,please use a number.");
+                    }
                 }
                 bool win = true;
                 bool gameover = false;
