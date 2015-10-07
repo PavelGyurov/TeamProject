@@ -17,7 +17,7 @@ namespace BlackJack
 
         static void Main(string[] args)
         {
-            Console.SetWindowSize(100, 50);
+            Console.SetWindowSize(120, 50);
             Console.BufferHeight = Console.WindowHeight;
             Console.BufferWidth = Console.WindowWidth;
 
@@ -435,18 +435,18 @@ namespace BlackJack
             Console.BackgroundColor = ConsoleColor.DarkGreen;
             for (int i = 0; i < Console.BufferHeight; i++)
             {
-                Console.SetCursorPosition(80, i);
+                Console.SetCursorPosition(100, i);
                 Console.WriteLine('|');
             }
-            for (int i = 0; i < 81; i++)
+            for (int i = 0; i < 101; i++)
             {
                 Console.SetCursorPosition(i, 40);
                 Console.Write('-');
             }
             Console.ResetColor();
-            Console.SetCursorPosition(85, 30);
+            Console.SetCursorPosition(105, 30);
             Console.WriteLine("Chips: {0}", chips - bet);
-            Console.SetCursorPosition(85, 42);
+            Console.SetCursorPosition(105, 42);
             Console.WriteLine("Bet: {0}", bet);
         }
 
