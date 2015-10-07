@@ -189,10 +189,17 @@ namespace BlackJack
                 {
                     if (win == true)
                     {
+                        if (GetScore(playerCards)==21)
+                        {
+                            Console.WriteLine("Player wins");
+                            chips = Convert.ToInt32(chips + bet * 2.5);
+                        }
+                        else {
                         Console.WriteLine("Player wins");
                         chips += bet;
                         Thread.Sleep(4500);
                         Console.Clear();
+                        }
                     }
                     else
                     {

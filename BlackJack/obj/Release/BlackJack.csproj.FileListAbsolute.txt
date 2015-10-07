@@ -1,0 +1,6 @@
+E:\projects\github\Teamproject\BlackJack\bin\Release\BlackJack.exe.config
+E:\projects\github\Teamproject\BlackJack\bin\Release\BlackJack.exe
+E:\projects\github\Teamproject\BlackJack\bin\Release\BlackJack.pdb
+E:\projects\github\Teamproject\BlackJack\obj\Release\BlackJack.exe
+E:\projects\github\Teamproject\BlackJack\obj\Release\BlackJack.pdb
+E:\projects\github\Teamproject\BlackJack\obj\Release\BlackJack.csprojResolveAssemblyReference.cache
