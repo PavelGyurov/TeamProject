@@ -87,8 +87,8 @@ namespace BlackJack
                 while (true)
                 {
                     Console.WriteLine("Hit or stand");
-                    string choice = Console.ReadLine();
-                    if (choice == "h")
+                    string choice = Console.ReadLine().ToLower();
+                    if (choice == "h" || choice =="hit")
                     {
 
                         playerCards.Add(DrawCard(deck));
@@ -112,7 +112,7 @@ namespace BlackJack
                         loseCount++;
                         break;
                     }
-                    if (choice == "s")
+                    if (choice == "s" || choice=="stand")
                     {
 
                         while (true)
