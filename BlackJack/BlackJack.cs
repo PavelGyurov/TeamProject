@@ -89,7 +89,8 @@ namespace BlackJack
                 playerCards.Add(DrawCard(deck));
                 playerCards.Add(DrawCard(deck));
 
-                PrintScore(playerCards, dealerCards); DrawTable(chips, bet);
+                PrintScore(playerCards, dealerCards);
+                DrawTable(chips, bet);
 
                 while (true)
                 {
@@ -116,7 +117,7 @@ namespace BlackJack
                         win = true;
                         gameover = true;
                         winCount++;
-                        Thread.Sleep(2000);
+                        Thread.Sleep(3000);
                         break;
                     }
 
@@ -203,19 +204,20 @@ namespace BlackJack
                         {
                             Console.WriteLine("Player wins");
                             chips = Convert.ToInt32(chips + bet * 2.5);
+                            Thread.Sleep(3000);
                         }
                         else
                         {
                             Console.WriteLine("Player wins");
                             chips += bet;
-                            Thread.Sleep(1000);
+                            Thread.Sleep(3000);
                         }
                     }
                     else
                     {
                         Console.WriteLine("Dealer wins");
                         chips -= bet;
-                        Thread.Sleep(2000);
+                        Thread.Sleep(3000);
 
                     }
                 }
@@ -257,6 +259,8 @@ namespace BlackJack
                 }
                 if (input != "yes" || input != "no")
                 {
+                    Console.Clear();
+                    DrawTable(0, 0);
                     Console.WriteLine("Invalid input, please type yes or no.");
                 }
             }
