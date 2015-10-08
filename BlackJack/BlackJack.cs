@@ -17,7 +17,7 @@ namespace BlackJack
 
         static void Main(string[] args)
         {
-            Console.SetWindowSize(120, 50);
+            Console.SetWindowSize(120, 49);
             Console.BufferHeight = Console.WindowHeight;
             Console.BufferWidth = Console.WindowWidth;
 
@@ -67,7 +67,7 @@ namespace BlackJack
                     try
                     {
                         bet = int.Parse(Console.ReadLine());
-                        if (bet < 0 || bet > chips)
+                        if (bet <= 0 || bet > chips)
                         {
                             Console.Clear();
                             DrawTable(chips, 0);
@@ -204,20 +204,20 @@ namespace BlackJack
                         {
                             Console.WriteLine("Player wins");
                             chips = Convert.ToInt32(chips + bet * 2.5);
-                            Thread.Sleep(3000);
+                            Thread.Sleep(2000);
                         }
                         else
                         {
                             Console.WriteLine("Player wins");
                             chips += bet;
-                            Thread.Sleep(3000);
+                            Thread.Sleep(2000);
                         }
                     }
                     else
                     {
                         Console.WriteLine("Dealer wins");
                         chips -= bet;
-                        Thread.Sleep(3000);
+                        Thread.Sleep(2000);
 
                     }
                 }
@@ -241,6 +241,8 @@ namespace BlackJack
 
         static int NewGame()
         {
+            Console.Clear();
+            DrawTable(0, 0);
             Console.WriteLine("You have 0 chips, do you want to start over ? (yes/no)");
             int chips;
             while (true)

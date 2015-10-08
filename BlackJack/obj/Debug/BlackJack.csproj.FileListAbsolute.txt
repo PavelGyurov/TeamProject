@@ -16,3 +16,9 @@ C:\Users\Pavel\Downloads\exprepo\BlackJack\obj\Debug\BlackJack.pdb
 C:\Users\Pavel\Downloads\exprepo\BlackJack\bin\Debug\BlackJack.exe
 C:\Users\Pavel\Downloads\exprepo\BlackJack\bin\Debug\BlackJack.pdb
 C:\Users\Pavel\Downloads\exprepo\BlackJack\obj\Debug\BlackJack.csprojResolveAssemblyReference.cache
+C:\Users\Pavel\Downloads\repo\BlackJack\bin\Debug\BlackJack.exe.config
+C:\Users\Pavel\Downloads\repo\BlackJack\obj\Debug\BlackJack.exe
+C:\Users\Pavel\Downloads\repo\BlackJack\obj\Debug\BlackJack.pdb
+C:\Users\Pavel\Downloads\repo\BlackJack\bin\Debug\BlackJack.exe
+C:\Users\Pavel\Downloads\repo\BlackJack\bin\Debug\BlackJack.pdb
+C:\Users\Pavel\Downloads\repo\BlackJack\obj\Debug\BlackJack.csprojResolveAssemblyReference.cache
